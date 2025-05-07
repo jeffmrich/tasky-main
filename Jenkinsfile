@@ -14,7 +14,12 @@ pipeline {
     stage('Auth, tag, and push to ECR') {
       steps {
         sh 'echo Auth'
-        sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 650251718485.dkr.ecr.us-west-2.amazonaws.com'
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: 'b2a7bcce-5b43-48e9-a8e3-ea75faa01903',
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) { 
+            sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 650251718485.dkr.ecr.us-west-2.amazonaws.com'
+        }
         sh 'echo Tag'
         sh 'docker tag tasky:${BUILD_NUMBER} 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
         sh 'echo Push to ECR'
