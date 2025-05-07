@@ -36,6 +36,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'echo Deploy I am in `pwd`, with IMAGE_TAG ${IMAGE_TAG}'
+        sh 'kubectl apply -f tasky.yaml'
         }
       }
     }
