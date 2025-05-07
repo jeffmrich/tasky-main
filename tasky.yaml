@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: tasky
-        image: 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:latest
+        image: 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:19
         ports:
         - containerPort: 8080
         env:
@@ -29,7 +29,7 @@ kind: Service
 metadata:
   name: tasky-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: tasky
   ports:
