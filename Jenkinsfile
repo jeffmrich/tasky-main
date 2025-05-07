@@ -30,6 +30,7 @@ pipeline {
       steps {
         sh 'echo Update Manifest I am in `pwd`, with IMAGE_TAG ${IMAGE_TAG}'
         sh 'sed -i "s|amazonaws.com/tasky:.*|amazonaws.com/tasky:${IMAGE_TAG}|" tasky.yaml'
+        sh 'cp -p tasky.yaml /home/jeff/Documents/work/general/wexercise/tasky-main/'
       }
     }
     stage('Deploy') {
