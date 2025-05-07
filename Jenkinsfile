@@ -11,8 +11,10 @@ pipeline {
         sh 'docker build -t tasky:${IMAGE_TAG} .'
       }
     }
-    stage('Tag and push to ECR') {
+    stage('Auth, tag, and push to ECR') {
       steps {
+        sh 'echo Auth'
+        sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 650251718485.dkr.ecr.us-west-2.amazonaws.com'
         sh 'echo Tag'
         sh 'docker tag tasky:${BUILD_NUMBER} 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
         sh 'echo Push to ECR'
