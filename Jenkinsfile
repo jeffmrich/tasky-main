@@ -21,19 +21,20 @@ pipeline {
             sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 650251718485.dkr.ecr.us-west-2.amazonaws.com'
         }
         sh 'echo Tag'
-        sh 'docker tag tasky:${BUILD_NUMBER} 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
+        sh 'docker tag tasky:${IMAGE_TAG} 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${IMAGE_TAG}'
         sh 'echo Push to ECR'
-        sh 'docker push 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
+        sh 'docker push 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${IMAGE_TAG}'
       }
     }
     stage('Update Manifest') {
       steps {
-        sh 'echo Update Manifest I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
+        sh 'echo Update Manifest I am in `pwd`, with IMAGE_TAG ${IMAGE_TAG}'
+        sh 'sed -i "s|amazonaws.com/tasky:.*|amazonaws.com/tasky:${IMAGE_TAG}|" tasky.yaml'
       }
     }
     stage('Deploy') {
       steps {
-        sh 'echo Deploy I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
+        sh 'echo Deploy I am in `pwd`, with IMAGE_TAG ${IMAGE_TAG}'
         }
       }
     }
