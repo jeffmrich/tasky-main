@@ -13,9 +13,10 @@ spec:
       labels:
         app: tasky
     spec:
+      serviceAccountName: cluster-admin-sa
       containers:
       - name: tasky
-        image: 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:26
+        image: 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:28
         ports:
         - containerPort: 8080
         env:
