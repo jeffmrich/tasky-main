@@ -11,9 +11,12 @@ pipeline {
         sh 'docker build -t tasky:${IMAGE_TAG} .'
       }
     }
-    stage('Push to ECR') {
+    stage('Tag and push to ECR') {
       steps {
+        sh 'echo Tag'
         sh 'docker tag tasky:${BUILD_NUMBER} 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
+        sh 'echo Push to ECR'
+        sh 'docker push 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
       }
     }
     stage('Update Manifest') {
