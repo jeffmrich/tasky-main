@@ -8,24 +8,22 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t myrepo/my-app:${IMAGE_TAG} .'
+        sh 'echo Build I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push myrepo/my-app:${IMAGE_TAG}'
+        sh 'echo PUSH I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
       }
     }
     stage('Update Manifest') {
       steps {
-        sh 'sed -i "s|image: myrepo/my-app:.*|image: myrepo/my-app:${IMAGE_TAG}|" k8s/deployment.yaml'
+        sh 'echo Update Manifest I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
       }
     }
     stage('Deploy') {
       steps {
-        withAWS(credentials: 'AWS-CREDS', region: "${AWS_REGION}") {
-          sh 'aws eks update-kubeconfig --name ${EKS_CLUSTER} --region ${AWS_REGION}'
-          sh 'kubectl apply -f k8s/deployment.yaml'
+        sh 'echo Deploy I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
         }
       }
     }
