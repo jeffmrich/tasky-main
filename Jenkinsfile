@@ -38,7 +38,7 @@ pipeline {
           KUBECONFIG = credentials('95de3483-6927-49f1-b067-fab9691536fb')
       }
       steps {
-          sh 'kubectl apply -f tasky.yaml'
+          sh 'kubectl apply -f tasky.yaml -v=6'
       }
     }
   }
