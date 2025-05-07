@@ -6,14 +6,14 @@ pipeline {
     EKS_CLUSTER = "automode-cluster"
   }
   stages {
-    stage('Build') {
+    stage('Build image') {
       steps {
         sh 'docker build -t tasky:${IMAGE_TAG} .'
       }
     }
-    stage('Push') {
+    stage('Push to ECR') {
       steps {
-        sh 'echo PUSH I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
+        sh 'docker tag tasky:${BUILD_NUMBER} 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:${BUILD_NUMBER}'
       }
     }
     stage('Update Manifest') {
