@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: tasky
-        image: 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:25
+        image: 650251718485.dkr.ecr.us-west-2.amazonaws.com/tasky:26
         ports:
         - containerPort: 8080
         env:
