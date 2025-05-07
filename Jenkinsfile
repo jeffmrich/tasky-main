@@ -8,7 +8,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'echo Build I am in `pwd`, with BUILD_NUMBER ${BUILD_NUMBER}'
         sh 'docker build -t tasky:${IMAGE_TAG} .'
       }
     }
