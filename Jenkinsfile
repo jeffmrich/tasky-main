@@ -26,7 +26,7 @@ pipeline {
     stage('Update Manifest') {
       steps {
         sh 'sed -i "s|amazonaws.com/tasky:.*|amazonaws.com/tasky:${IMAGE_TAG}|" tasky.yaml'
-        sh 'sudo cp -p "/var/lib/jenkins/workspace/Tasky pipeline/tasky.yaml" /home/jeff/Documents/work/general/wexercise/tasky-main/ && sudo chown jeff:jeff /home/jeff/Documents/work/general/wexercise/tasky-main/tasky.yaml'
+//        sh 'sudo cp -p "/var/lib/jenkins/workspace/Tasky pipeline/tasky.yaml" /home/jeff/Documents/work/general/wexercise/tasky-main/ && sudo chown jeff:jeff /home/jeff/Documents/work/general/wexercise/tasky-main/tasky.yaml'
       }
     }
     stage('Deploy') {
